@@ -1,0 +1,40 @@
+body {
+    padding:20px 200px;
+}
+.blue {
+    color:blue;
+}
+
+section {
+    padding:3px;
+}
+section section {
+    margin-left:50px;
+}
+
+section.atm {
+    background-color:aliceblue;
+}
+
+section.list {
+    background-color:gainsboro;
+}
+
+label {
+    display:block;
+    border:1px solid #eaeaea;
+    border-style: none;
+}
+label span {
+    display:inline-block;
+    font-weight: bold;
+    border-style: none;
+}
+input.short {
+    width:20px;
+}
+
+
+
+
+
