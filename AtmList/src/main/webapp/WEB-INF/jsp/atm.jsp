@@ -19,15 +19,6 @@
                 <p>
                     <button ng-click="go('list')" >List ATMs From Server</button>
                 </p>
-                
-                <p>
-                    <button>Add ATM</button>
-                </p>
-                
-                
-                <!--p>
-                    <button ng-click="addATM()">Add ATM</button>
-                </p-->
                                
                 <section class="atm">
                     <label>

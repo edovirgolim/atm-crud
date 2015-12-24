@@ -17,7 +17,7 @@
         <div>
             <div ng-controller="ctrl-list" context-path="${cp}">
                 <p>
-                    <button ng-click="go('./')" >List ATMs From Server</button>
+                    <button ng-click="go('./atm')" >Add New ATM</button>
                 </p>
                 <h2>ATMs List</h2>
                 <hr />

@@ -45,7 +45,7 @@ ngAtm.controller('ctrl',["$scope","$attrs", "$http", "$window", function($scope,
     $scope.listAtmServer = function() {
         var req = {
             method: 'GET',
-            url: $attrs.contextPath  + "/list",
+            url: $attrs.contextPath  + "/list/get",
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -61,11 +61,12 @@ ngAtm.controller('ctrl',["$scope","$attrs", "$http", "$window", function($scope,
     };
     
     $scope.saveATM = function() {
+        alert($attrs.contextPath  + "/save");
         var req = {
-            method: 'POST',
+            method: "POST",
             url: $attrs.contextPath  + "/save",
             headers: {
-                'Content-Type': 'application/json'
+                "Content-Type": "application/json"
             },
             data: JSON.stringify({atmObj: $scope.atmObj})
         };

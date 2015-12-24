@@ -15,7 +15,7 @@ ngAtmList.controller('ctrl-list',["$scope","$attrs", "$http", "$window", functio
     $scope.listAtmServer = function() {
         var req = {
             method: 'GET',
-            url: $attrs.contextPath  + "/list/get",
+            url: $attrs.contextPath  + "atmList",
             headers: {
                 'Content-Type': 'application/json'
             }
