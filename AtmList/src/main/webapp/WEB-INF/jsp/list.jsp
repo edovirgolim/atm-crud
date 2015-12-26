@@ -23,7 +23,7 @@
                 <p>
                     <button ng-click="go('./atm')" >Add New ATM</button>
                     &nbsp;
-                    <button ng-click="go('out')" >Log out</button>
+                    <button ng-click="go('logout')" >Log out</button>
                 </p>
                 <span ng-show="showLoader">
                     <img src="${cp}/resources/img/loading.gif">

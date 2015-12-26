@@ -23,6 +23,8 @@
                     <button ng-click="go('atm')" >Add New ATM</button>
                 &nbsp;
                     <button ng-click="go('list')" >List ATMs From Server</button>
+                &nbsp;
+                    <button ng-click="go('logout')" >Log out</button>
                 </p>
         </div>
 </body>
