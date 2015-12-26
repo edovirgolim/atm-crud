@@ -15,15 +15,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.Resource;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.security.access.annotation.Secured;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -42,15 +38,27 @@ public class ATMController {
     List<ATM> atmList = new ArrayList<ATM>();
     List<ATM> atmServerList = new ArrayList<ATM>();
 
-    @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
-    public String homePage(ModelMap model) {
-        model.addAttribute("greeting", "Hi, Welcome to mysite. ");
-        return "welcome";
+    @RequestMapping(value = {"/"}, method = RequestMethod.GET)
+    public String login(ModelMap model) {
+        model.addAttribute("greeting", "ING ATM");
+        return "home";
+    }
+    
+    @RequestMapping(value = {"/home"}, method = RequestMethod.GET)
+    public String home(ModelMap model) {
+        model.addAttribute("greeting", "ING ATM");
+        return "home";
+    }
+    
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logout(ModelMap map, HttpSession session) {
+        session.invalidate();
+	return "redirect:login";
     }
 
     @RequestMapping(value = "/atm", method = RequestMethod.GET)
     public String addATM(ModelMap map) {
-        map.put("msg", "ING ATN List");
+        map.put("greeting", "ING ATM Add");
         return "atm";
     }
 
@@ -60,9 +68,12 @@ public class ATMController {
         return "list";
     }
 
+    @Secured("authenticated")
     @RequestMapping(value = "/atmList", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     Object getATMListFromServer(ModelMap map) {
+        map.put("greeting", "ING ATM List");
+        
         try {
             ApplicationContext appContext = new ClassPathXmlApplicationContext();
             System.out.println("----");
@@ -85,16 +96,17 @@ public class ATMController {
         return atmServerList;
     }
 
+    @Secured("authenticated")
     @RequestMapping(value = "/get", method = RequestMethod.GET, produces = "application/json")
     public @ResponseBody
     Object getATMList(ModelMap map) {
+        map.put("greeting", "ING ATM List");
         return atmList;
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST, produces = "application/json")
     public @ResponseBody
     Object saveATM(@RequestBody ATMRequest request) {
-        System.out.println(">>>>>>" + request.getAtmObj() + "<<<<<<");
         atmList.add(request.getAtmObj());
         Map msgMap = new HashMap();
         msgMap.put("msg", "ATM Stored successfully");

@@ -1,6 +1,6 @@
 var ngAtmList = angular.module('atm-list', []);
 
-ngAtmList.controller('ctrl-list',["$scope","$attrs", "$http", "$window", function($scope, $attrs, $http, $window){
+ngAtmList.controller('ctrl-list',["$scope","$attrs", "$http", "$window", "$log", function($scope, $attrs, $http, $window, $log){
     $scope.atmServerList = [];
     $scope.currentPage = 0;
     $scope.pageSize = 10;
@@ -13,9 +13,10 @@ ngAtmList.controller('ctrl-list',["$scope","$attrs", "$http", "$window", functio
     }
     
     $scope.listAtmServer = function() {
+        $scope.showLoader = true;
         var req = {
             method: 'GET',
-            url: $attrs.contextPath  + "atmList",
+            url: $attrs.contextPath  + "/atmList",
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -23,10 +24,12 @@ ngAtmList.controller('ctrl-list',["$scope","$attrs", "$http", "$window", functio
 
         $http(req).
             success(function(data, status, headers, config){
+                $scope.showLoader = false;
                 $scope.atmServerList = data;
             }).
             error(function(jqXHR, textStatus, errorThrown){
                 alert('Woops something wen wrong with the AJAX call');
+                $log.info(jqXHR);
             });
     };
     
@@ -35,8 +38,7 @@ ngAtmList.controller('ctrl-list',["$scope","$attrs", "$http", "$window", functio
     };
     
     //do this when the page loads and the DOM is ready
-    angular.element(document).ready(function () {
-        alert('Fetching ATMs from the server');        
+    angular.element(document).ready(function () {    
         $scope.listAtmServer();
     });
     

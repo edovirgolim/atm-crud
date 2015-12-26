@@ -1,25 +1,33 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@page session="true"%>
+
 <c:set var="cp" value="${pageContext.request.servletContext.contextPath}" scope="request" />
 
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="_csrf" content="${_csrf.token}" />
+        <meta name="_csrf_header" content="${_csrf.headerName}" />
         <title>ING ATM</title>
         <link rel="stylesheet" type="text/css" href="${cp}/resources/css/site.css" />
         <script src="${cp}/resources/js/lib/angular.min.js" type="text/javascript"></script>
         <script src="${cp}/resources/js/atm-list.js"></script>
     </head>
     <body ng-app="atm-list">
-        <h4>ING ATM</h4>
+        <h4>ING ATM List</h4>
                
         <div>
             <div ng-controller="ctrl-list" context-path="${cp}">
                 <p>
                     <button ng-click="go('./atm')" >Add New ATM</button>
+                    &nbsp;
+                    <button ng-click="go('out')" >Log out</button>
                 </p>
-                <h2>ATMs List</h2>
+                <span ng-show="showLoader">
+                    <img src="${cp}/resources/img/loading.gif">
+                </span>
                 <hr />
                 
                 <section class="list" ng-repeat="atm in atmServerList | startFrom:currentPage*pageSize | limitTo:pageSize">
